@@ -329,9 +329,5 @@ public class StdIn {
         return vals;
     }
 
-    
-
-
-
 
 }
