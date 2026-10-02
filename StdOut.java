@@ -296,19 +296,180 @@ public final class StdOut {
         out.flush();
     }
 
+    public static int lg(int N) { 
+        if (N <= 0) {
+            throw new IllegalArgumentException("N must be greater than 0");
+        }
+        int log = 0;
+        while (N > 1) {
+            N /= 2; // Equivalent to N >>= 1
+            log++;
+        }
+        return log;
+    }
+
+    public static int[] histogram(int[] a, int M) {
+        int[] array = new int[M];
+        int ctr = 0;
+        int sum = 0;
+        for(int i = 0; i < M; i++) {
+            for(int j = 0; j < a.length; j++) {
+                if (a[j] == i) {
+                    ctr++;
+                }
+                array[i] = ctr;
+                sum += array[i];
+            }
+        }
+        StdOut.println(sum == a.length);
+        return array;
+    }
+
+    public static String exR1(int n) {
+        if (n <= 0) return "";
+        return exR1(n - 3) + n + exR1(n - 2) + n;
+    }
+
+
    /**
      * Unit tests some methods in {@code StdOut}.
      *
      * @param args the command-line arguments
      */
+
     public static void main(String[] args) {
 
-        StdOut.printf("You go there\n" + "Where?\n" + "\nHere");
-        StdOut.print(5);
-        StdOut.print(true);
-        StdOut.print("Not True");
-        StdOut.println("Here is a line");
-        StdOut.print("Why am I not so close to this guy");
+        // StdOut.printf("You go there\n" + "Where?\n" + "\nHere");
+        // StdOut.print(5);
+        // StdOut.print(true);
+        // StdOut.print("Not True");
+        // StdOut.println("Here is a line");
+        // StdOut.print("Why am I not so close to this guy");
+        // StdOut.println((0 + 15) / 2);
+        // StdOut.println(2.0e-6 * 100000000.1);
+        // StdOut.println(true && false || true && true);
+
+        // var x = 0.0;
+        // x = (1 + 2.236) / 2;
+        // StdOut.println(x);
+        // x = 1 + 2 + 3 + 4.0;
+        // StdOut.println(x);
+
+        // var y = true;
+        // y = (4.1 >= 4);
+        // StdOut.println(y);
+
+        // var z = 1 + 2 + "3";
+        // StdOut.println(z);
+
+        // var a = 1;
+        // var b = 2;
+        // var c = 1;
+
+        // then isn't valid Java syntax
+        // if (a > b) then c = 0; 
+
+        // condition needs to be enclosed between parantheses
+        // if a > b { c = 0; }
+
+        // no issue
+        // if (a > b) c = 0;
+
+        // block needs to be enclosed before an else branch
+        // if (a > b) c = 0 else b = 0;
+
+        // double x = 0.7;
+        // double y = 0.2;
+
+        // if( (0 < x && x < 1) && (0 < y && y < 1)) {
+        //     StdOut.print(true);
+        // } else StdOut.print(false);
+
+        // int f = 0; 
+        // int g = 1;
+        // for (int i = 0; i <= 15; i++) {
+        //     StdOut.println(f);
+        //     f = f + g;
+        //     g = f - g;
+        //     System.out.println(g);
+        // }
+
+        // double t = 9.0;
+        // while (Math.abs(t - 9.0/t) > .001)
+        //     t = (9.0/t + t) / 2.0;
+        //     StdOut.println(t);
+        // StdOut.printf("%.5f\n", t);
+
+
+        // int sum = 0;
+        // for (int i = 1; i < 1000; i++)
+        //     for (int j = 0; j < i; j++)
+        //         sum++;
+        // StdOut.println(sum);
+
+        // var N = 100;
+        // int sum = 0; 
+        // for (int i = 1; i < 1000; i *= 2)
+        //     for (int j = 0; j < N; j++)
+        //         sum++;
+        // StdOut.println(sum); 
+
+        // System.out.println('b');
+        // System.out.println('b' + 'c');
+        // System.out.println((char) ('a' + 4));
+
+        // int N = 10;
+        // String s = "";
+        // for (int n = N; n > 0; n /= 2)
+        //     s = (n % 2) + s;
+        // StdOut.println(s);
+        // boolean[][] a = new boolean[2][4];
+        // boolean[][] a = {{true, false, true, true}, {true, true, false, false}};
+        // // boolean[2][4] a = [[true, false, true ,true], [true, true, false, false]]; 
+
+        // for(int i = 0; i < a.length; i++) {
+        //     for(int j = 0; j < 4; j++) {
+        //         if(a[i][j] == true) {
+        //             StdOut.print('*');
+        //         }
+        //         else {
+        //             StdOut.print(' ');
+        //         }
+        //     }
+        //     StdOut.print('\n');
+        // }
+
+        // int[] a = new int[10];
+        // for (int i = 0 ; i < 10; i++)
+        //     a[i] = 9 - i;
+        // for (int i = 0 ; i < a.length; i++)
+        //     StdOut.print(a[i]);
+        // for (int i = 0; i < 10; i++)
+        //     a[i] = a[a[i]];
+        // for (int i = 0; i < 10; i++)
+        //     StdOut.print(a[i]);
+
+        // int[][] a = {{1, 2, 3}, {1, 2, 3}};
+
+        // for (int j = 0; j < 3; j++)
+        // { 
+        //     for (int i = 0; i < 2; i++)
+        //     { 
+        //         StdOut.print(a[i][j] + " ");
+        //     }
+        //     StdOut.println();
+        // }
+        
+        // int[] a = {1, 1, 2, 3, 4, 5, 6};
+        // int M = 7;
+        // int[] result = new int[M];
+        // result = histogram(a, M);
+        // for(int i = 0; i < M; i++) {
+        //     StdOut.println(result[i]);
+        // }
+
+        StdOut.println(exR1(6));
+        
     }
 
 }
