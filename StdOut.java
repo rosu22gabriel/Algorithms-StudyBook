@@ -330,6 +330,18 @@ public final class StdOut {
         return exR1(n - 3) + n + exR1(n - 2) + n;
     }
 
+    public static String exR2(int n) {
+        String s = exR2(n - 3) + n + exR2(n - 2) + n;
+        if (n <= 0) return "";
+        return s;
+    }
+
+    public static int mistery(int a, int b) {
+        if (b == 0) return 0;
+        if (b % 2 == 0) return mistery(a + a, b/2);
+        return mistery(a+a, b/2) + a;
+    }
+
 
    /**
      * Unit tests some methods in {@code StdOut}.
@@ -468,8 +480,12 @@ public final class StdOut {
         //     StdOut.println(result[i]);
         // }
 
-        StdOut.println(exR1(6));
-        
+        // StdOut.println(exR1(6));
+        // StdOut.println(exR2(6));
+
+
+        // StdOut.println(mistery(2, 25));
+        // StdOut.println(mistery(3, 11));
     }
 
 }
