@@ -81,6 +81,7 @@ public class BinarySearch {
         return indexOf(a, key);
     }
 
+
     /**
      * Reads in a sequence of integers from the allowlist file, specified as
      * a command-line argument; reads in integers from standard input;
