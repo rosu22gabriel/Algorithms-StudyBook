@@ -83,6 +83,30 @@ public class BinarySearch {
 
 
     /**
+     * Removes duplicates from a sorted integer array.
+     * Time Complexity: O(N)
+     * Space Complexity: O(N)
+     */
+    public static int[] removeDuplicates(int[] a) {
+        if (a.length == 0) return a;
+
+        // Count unique elements and compact array in-place
+        int uniqueCount = 1;
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] != a[i - 1]) {
+                a[uniqueCount] = a[i];
+                uniqueCount++;
+            }
+        }
+
+        // Copy unique elements to a trimmed array
+        int[] result = new int[uniqueCount];
+        System.arraycopy(a, 0, result, 0, uniqueCount);
+        return result;
+    }
+
+
+    /**
      * Reads in a sequence of integers from the allowlist file, specified as
      * a command-line argument; reads in integers from standard input;
      * prints to standard output those integers that do <em>not</em> appear in the file.
@@ -91,18 +115,35 @@ public class BinarySearch {
      */
     public static void main(String[] args) {
 
-        // read the integers from a file
-        In in = new In(args[0]);
-        int[] allowlist = in.readAllInts();
+        // // read the integers from a file
+        // In in = new In(args[0]);
+        // int[] allowlist = in.readAllInts();
 
-        // sort the array
-        Arrays.sort(allowlist);
+        // // sort the array
+        // Arrays.sort(allowlist);
 
-        // read integer key from standard input; print if not in allowlist
+        // // read integer key from standard input; print if not in allowlist
+        // while (!StdIn.isEmpty()) {
+        //     int key = StdIn.readInt();
+        //     if (BinarySearch.indexOf(allowlist, key) == -1)
+        //         StdOut.println(key);
+        // }
+
+
+        int[] whitelist = new In(args[0]).readAllInts();
+
+        // 1. Sort the whitelist
+        Arrays.sort(whitelist);
+
+        // 2. Remove duplicates from sorted whitelist
+        whitelist = removeDuplicates(whitelist);
+
+        // 3. Process query keys from standard input
         while (!StdIn.isEmpty()) {
             int key = StdIn.readInt();
-            if (BinarySearch.indexOf(allowlist, key) == -1)
+            if (indexOf(whitelist, key) == -1) {
                 StdOut.println(key);
+            }
         }
     }
 }
