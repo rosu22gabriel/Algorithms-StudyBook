@@ -45,8 +45,14 @@ public class ShuffleTest {
 
         // Header row for columns (positions)
         StdOut.print("Pos:    ");
+        for (int j = 0; j < M; j++) {
+            StdOut.printf("[%2d]    ", j);
+        }
+        StdOut.println("\n" + "-".repeat(8 + M * 7));
+
+        // Table rows (element values)
         for (int i = 0; i < M; i++) {
-            StdOut.printf("Val %2: ", i);
+            StdOut.printf("Val %2d: ", i);
             for (int j = 0; j < M; j++) {
                 StdOut.printf("%6d ", table[i][j]);
             }
