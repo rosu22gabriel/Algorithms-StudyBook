@@ -58,6 +58,23 @@ public class SmartDate {
         return year;
     }
 
+
+    /**
+     * Returns the day of the week for the given date in the 21st century.
+     * Uses Sakamoto's algorithm for day-of-week calculation
+     */
+    public String dayOfTheWeek() {
+        String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        int[] t = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
+
+        int y = year;
+        if (month < 3) {
+            y -= 1;
+        }
+        int dayIndex = (y + y / 4 - y / 100 + y / 400 + t[month - 1] + day) % 7;
+        return days[dayIndex];
+    }
+
     @Override 
     public String toString() {
         return month + "/" + day + "/" + year;
@@ -94,5 +111,8 @@ public class SmartDate {
         } catch (IllegalArgumentException e) {
             StdOut.println("Caught expected error: " + e.getMessage());
         }
+
+        SmartDate date = new SmartDate(10, 12, 2026);
+        System.out.println(date.dayOfTheWeek());
     }
 }
