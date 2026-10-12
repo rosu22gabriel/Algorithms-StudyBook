@@ -68,6 +68,8 @@ public class TransactionPersonal implements Comparable<TransactionPersonal> {
                 && this.when.equals(that.when);
     }
 
+    
+
     @Override 
     public int compareTo(TransactionPersonal that) {
         return Double.compare(this.amount, that.amount);
