@@ -42,4 +42,4 @@ public class StackCopy {
         StdOut.println("Original size: " + original.size());
         StdOut.println("Copied size:   " + copied.size());
     }
-}
+}1
