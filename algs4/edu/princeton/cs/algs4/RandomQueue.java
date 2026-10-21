@@ -1,8 +1,9 @@
 package edu.princeton.cs.algs4;
 
 import java.util.NoSuchElementException;
+import java.util.Iterator;
 
-public class RandomQueue<Item> {
+public class RandomQueue<Item> implements Iterable<Item> {
     private Item[] q;
     private int n; // Number of elements in the queue
 
@@ -66,6 +67,40 @@ public class RandomQueue<Item> {
         int r = StdRandom.uniform(n);
         return q[r];
     }
+
+    public Iterator<Item> iterator() {
+        return new RandomQueueIterator();
+    }
+
+    private class RandomQueueIterator implements Iterator<Item> {
+        private final Item[] copy;
+        private int current;
+
+        @SuppressWarnings("Unchecked")
+        public RandomQueueIterator() {
+            copy = (Item[]) new Object[n];
+            for (int i = 0; i < n; i++) {
+                copy[i] = q[i];
+            }
+            StdRandom.shuffle(copy);
+            current = 0;
+        }
+
+        public boolean hasNext() {
+            return current < copy.length;
+        }
+
+        public Item next() {
+            if (!hasNext()) throw new NoSuchElementException();
+            return copy[current++];
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
+
+
 
     // Helper class to represent a playing card for the bridge client
     private static class Card {
