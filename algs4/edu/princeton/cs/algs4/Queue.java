@@ -59,6 +59,25 @@ public class Queue<Item> implements Iterable<Item> {
         n = 0;
     }
 
+
+    /**
+     * Copy constructor: Initializes a new independent copy of queue q.
+     * Uses the public API (dequeue and enqueue) as suggested by the hint.
+     * 
+     * @param q the queue to copy
+     */
+    public Queue(Queue<Item> q) {
+        if (q == null) {
+            throw new IllegalArgumentException("Queue argument cannot be null");
+        }
+        int initialSize = q.size();
+        for (int i = 0; i < initialSize; i++) {
+            Item item = q.dequeue();
+            q.enqueue(item);    // Restore item back to original queue q
+            this.enqueue(item); // Insert item into the new copy queue r
+        }
+    }
+
     /**
      * Returns true if this queue is empty.
      *
@@ -168,15 +187,42 @@ public class Queue<Item> implements Iterable<Item> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        Queue<String> queue = new Queue<String>();
-        while (!StdIn.isEmpty()) {
-            String item = StdIn.readString();
-            if (!item.equals("-"))
-                queue.enqueue(item);
-            else if (!queue.isEmpty())
-                StdOut.print(queue.dequeue() + " ");
+        // Queue<String> queue = new Queue<String>();
+        // while (!StdIn.isEmpty()) {
+        //     String item = StdIn.readString();
+        //     if (!item.equals("-"))
+        //         queue.enqueue(item);
+        //     else if (!queue.isEmpty())
+        //         StdOut.print(queue.dequeue() + " ");
+        // }
+        // StdOut.println("(" + queue.size() + " left on queue)");
+
+        Queue<String> q = new Queue<String>();
+        q.enqueue("A");
+        q.enqueue("B");
+        q.enqueue("C");
+
+        // Create independent copy r from q
+        Queue<String> r = new Queue<String>(q);
+
+        // Mutate original queue q
+        q.enqueue("D");
+        q.dequeue(); // Removes "A"
+        
+        // Mutate copied queue r
+        r.enqueue("Z");
+
+        StdOut.print("Original queue q:");
+        for (String item : q) {
+            StdOut.print(item + " ");
         }
-        StdOut.println("(" + queue.size() + " left on queue)");
+        StdOut.println(); // Output: B C D
+
+        StdOut.print("Copied queue r: ");
+        for (String item : r) {
+            StdOut.print(item + " ");
+        }
+        StdOut.println(); // Output: A B C Z
     }
 }
 
