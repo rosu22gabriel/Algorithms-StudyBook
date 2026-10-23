@@ -66,6 +66,33 @@ public class Stack<Item> implements Iterable<Item> {
     }
 
     /**
+     * Copy constructor: Initializes a new independent copy of stack s.
+     * Recursively duplicates the node sequence to preserve stack ordering.
+     * 
+     * @param s the stack to copy
+     */
+    public Stack(Stack<Item> s) {
+        if (s == null) {
+            throw new IllegalArgumentException("Stack argument cannot be null");
+        }
+        if (s.first != null) {
+            this.first = copyNodes(s.first);
+        }
+        this.n = s.n;
+    }
+
+    // Helper method to recursively deep-copy the linked list nodes
+    private Node copyNodes(Node x) {
+        if (x == null) {
+            return null;
+        }
+        Node newNode = new Node();
+        newNode.item = x.item;
+        newNode.next = copyNodes(x.next);
+        return newNode;
+    }
+
+    /**
      * Returns true if this stack is empty.
      *
      * @return true if this stack is empty; false otherwise
@@ -175,15 +202,42 @@ public class Stack<Item> implements Iterable<Item> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        Stack<String> stack = new Stack<String>();
-        while (!StdIn.isEmpty()) {
-            String item = StdIn.readString();
-            if (!item.equals("-"))
-                stack.push(item);
-            else if (!stack.isEmpty())
-                StdOut.print(stack.pop() + " ");
+        // Stack<String> stack = new Stack<String>();
+        // while (!StdIn.isEmpty()) {
+        //     String item = StdIn.readString();
+        //     if (!item.equals("-"))
+        //         stack.push(item);
+        //     else if (!stack.isEmpty())
+        //         StdOut.print(stack.pop() + " ");
+        // }
+        // StdOut.println("(" + stack.size() + " left on stack)");
+        Stack<String> s = new Stack<String>();
+        s.push("C");
+        s.push("B");
+        s.push("A"); // State of s (top to bottom): A -> B -> C
+
+        // Create independent copy t from s
+        Stack<String> t = new Stack<String>(s);
+
+        // Mutate original stack s
+        s.push("X");
+        s.pop(); // Pops "X"
+        s.pop(); // Pops "A"
+
+        // Mutate copied stack t
+        t.push("Y");
+
+        StdOut.print("Original stack s (top to bottom): ");
+        for (String item : s) {
+            StdOut.println(); // Output: B C
         }
-        StdOut.println("(" + stack.size() + " left on stack)");
+        StdOut.println(); // Output: B C
+
+        StdOut.print("Copied stack t (top to bottom):  ");
+        for (String item : t) {
+            StdOut.print(item + " ");
+        }
+        StdOut.println(); // Output: Y A B C
     }
 }
 
