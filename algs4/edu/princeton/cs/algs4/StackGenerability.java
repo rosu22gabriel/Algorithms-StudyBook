@@ -90,3 +90,31 @@ public class StackGenerability {
         StdOut.println("Is [4, 6, 8, 7, 5, 3, 2, 9, 0, 1] generable? " + isGenerable(perm3)); // false
     }
 }
+
+// Analysis & Questions Answered
+// Part 1: Underflow Detection in O(1) Space
+// - Core Condition: Underflow occurs if and only if at any prefix of the operation
+//   sequence, the total number of pop (-) directives strictly exceeds the total number of
+//   push directives.
+// - Algorithm: Maintain an integer counter count initialized to 0. Iterate left-to-right across
+//   the operation sequence:
+//   - Increment count for each push
+//   - Decrement count for each pop.
+//   - If count drops below 0, immediately report underflow.
+// - Complexity: Time complexity is linear O(N) across N total directives. Space complexity
+//   is strict O(1) as it requires no dynamic collectons or memory allocation.
+//
+//  Part2: Permutation Generability in O(N) Time
+//  - Core Condition: A permutation is stack-generable if and only if it contains no prohibited
+//    pattern where a < b < c appear in input order a, b, c, but outputting c first forces a to
+//    be output before b.
+//  - Simulation Algorithm: Since pushing is strictly ordered(0, 1, ..., N - 1), the sequence
+//    of operatons required to yield a target permutation is deterministic:
+//    1. For each target integer in the output permutation, greedily push integers 0, 1, ...
+//       onto an auxiliary stack until the top of the stack matches the target integer.
+//    2. Pop the matching integer from the top of the stack.
+//    3. If the top of the stack does not match the target (and no further integers can be pushed),
+//    the permutation cannot be produced by any sequence of stack operations.
+//  - Complexity: Every element 0 <= i < N is pushed onto the stack exactly once and popped at most once.
+//    The total number of stack operations across the entire algorithm is bounded by 2N, guaranteeing linear
+//    O(N) execution time and O(N) space.
